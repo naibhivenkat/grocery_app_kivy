@@ -1,0 +1,10 @@
+<CartScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text: "Cart for " + root.selected_shop
+        Label:
+            text: ", ".join(root.cart_items)
+        Button:
+            text: "Place Order"
+            on_release: root.place_order()

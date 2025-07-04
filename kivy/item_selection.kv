@@ -1,0 +1,23 @@
+<ItemSelectionScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text: "Select Items from " + root.selected_shop
+            font_size: 20
+        GridLayout:
+            cols: 2
+            Button:
+                text: "Rice"
+                on_release: root.add_to_cart(self.text)
+            Button:
+                text: "Milk"
+                on_release: root.add_to_cart(self.text)
+            Button:
+                text: "Eggs"
+                on_release: root.add_to_cart(self.text)
+            Button:
+                text: "Tomatoes"
+                on_release: root.add_to_cart(self.text)
+        Button:
+            text: "View Cart"
+            on_release: root.view_cart()

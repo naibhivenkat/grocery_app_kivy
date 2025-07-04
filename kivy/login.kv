@@ -1,0 +1,27 @@
+<LoginScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 10
+
+        Image:
+            source: "kivy/icons/app_icon.png"
+            size_hint_y: 0.4
+
+        TextInput:
+            id: username
+            hint_text: "Username"
+
+        TextInput:
+            id: password
+            hint_text: "Password"
+            password: True
+
+        Button:
+            text: "Login"
+            on_release:
+                root.do_login(username.text, password.text)
+
+        Label:
+            id: login_status
+            color: 1,0,0,1

@@ -1,0 +1,19 @@
+<ShopSelectionScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text: "Select Shop"
+            font_size: 24
+        GridLayout:
+            cols: 1
+            size_hint_y: None
+            height: self.minimum_height
+            Button:
+                text: "Fresh Mart"
+                on_release: root.select_shop(self.text)
+            Button:
+                text: "Green Grocers"
+                on_release: root.select_shop(self.text)
+            Button:
+                text: "Daily Needs"
+                on_release: root.select_shop(self.text)
