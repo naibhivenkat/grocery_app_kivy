@@ -5,7 +5,7 @@ package.domain = org.yourdomain
 source.dir = .
 source.include_exts = py,kv,png,jpg
 version = 1.0
-requirements = python3,kivy
+requirements = python3,kivy,pillow
 exclude_modules = email,html,xml,unittest,pydoc,doctest,distutils
 android.archs = armeabi-v7a
 strip = 1
@@ -15,10 +15,8 @@ icon.filename = kivy/icons/app_icon.png
 orientation = portrait
 fullscreen = 1
 
-#android.sdk_path = $HOME/.buildozer/android/platform/android-sdk
-#android.ndk_path = $HOME/.buildozer/android/platform/android-ndk-r25b
+# Let GitHub Actions set these via environment variables
 android.sdk_path = $ANDROIDSDK
 android.ndk_path = $ANDROIDNDK
 android.ndk_api = 21
 android.api = 30
-
