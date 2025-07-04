@@ -6,45 +6,62 @@ on:
 
 jobs:
   build:
+    name: Build APK using Buildozer
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - name: Checkout repo
+        uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
-          python-version: "3.10"
+          python-version: '3.10'
 
-      - name: Install system packages
+      - name: Install dependencies
         run: |
           sudo apt update
-          sudo apt install -y zip unzip openjdk-11-jdk python3-pip git
+          sudo apt install -y python3-pip zip unzip openjdk-17-jdk
+          pip install --upgrade pip
+          pip install buildozer cython
 
-      - name: Install buildozer and dependencies
+      - name: Install required system packages
         run: |
-          python3 -m pip install --upgrade pip
-          pip install buildozer cython virtualenv
+          sudo apt install -y \
+            libtool autoconf automake build-essential \
+            libncurses5-dev libstdc++6 zlib1g zlib1g-dev \
+            libc6-dev libncurses5 git
 
-      - name: Accept Android licenses and install build tools
+      - name: Install Android SDK & NDK
+        env:
+          ANDROID_SDK_ROOT: $HOME/.android-sdk
         run: |
-          yes | sdkmanager --licenses || true
-          sdkmanager "build-tools;30.0.3" || true
+          mkdir -p $ANDROID_SDK_ROOT/cmdline-tools
+          cd $ANDROID_SDK_ROOT/cmdline-tools
+          curl -O https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip
+          unzip -q commandlinetools-linux-*.zip -d latest
+          rm commandlinetools-linux-*.zip
+          yes | $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager --sdk_root=${ANDROID_SDK_ROOT} --licenses
+          $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager --sdk_root=${ANDROID_SDK_ROOT} \
+            "platform-tools" "platforms;android-30" "build-tools;30.0.3" "ndk;25.2.9519653"
 
-      - name: Force Build Tools version in buildozer.spec
+      - name: Set environment variables
         run: |
-          if grep -q "^android.build_tools_version" buildozer.spec; then
-            sed -i 's/^android.build_tools_version = .*/android.build_tools_version = 30.0.3/' buildozer.spec
-          else
-            echo "android.build_tools_version = 30.0.3" >> buildozer.spec
-          fi
+          echo "ANDROIDSDK=$HOME/.android-sdk" >> $GITHUB_ENV
+          echo "ANDROIDNDK=$HOME/.android-sdk/ndk/25.2.9519653" >> $GITHUB_ENV
+          echo "ANDROID_NDK_HOME=$HOME/.android-sdk/ndk/25.2.9519653" >> $GITHUB_ENV
 
-      - name: Build APK using Buildozer
+      - name: Build APK
+        env:
+          ANDROIDSDK: ${{ env.ANDROIDSDK }}
+          ANDROIDNDK: ${{ env.ANDROIDNDK }}
+          ANDROID_NDK_HOME: ${{ env.ANDROIDNDK }}
         run: |
           buildozer android debug
 
-      - name: Upload APK artifact
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: GroceryApp-APK
+          name: kivy-app-release-apk
           path: bin/*.apk
+
