@@ -26,16 +26,20 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: Install dependencies
+      - name: Install dependencies (Ubuntu 24.04 compatible)
         run: |
           sudo apt-get update
           sudo apt-get install -y \
             zip unzip git build-essential ccache libtool \
-            autoconf automake libncurses5 libstdc++6 zlib1g-dev \
-            openjdk-17-jdk
+            autoconf automake libstdc++6 zlib1g-dev openjdk-17-jdk
+
+          # Workaround for libncurses5: manually install if needed
+          wget http://archive.ubuntu.com/ubuntu/pool/main/n/ncurses/libncurses5_6.1-1ubuntu1.18.04_amd64.deb
+          sudo dpkg -i libncurses5_6.1-1ubuntu1.18.04_amd64.deb
 
           python3 -m pip install --upgrade pip
           pip install buildozer cython
+      
 
       - name: Install Android cmdline-tools
         run: |
