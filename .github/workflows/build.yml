@@ -22,7 +22,7 @@ jobs:
       - name: Install required packages
         run: |
           sudo apt-get update
-          sudo apt-get install -y zip unzip libncurses5
+          sudo apt-get install -y zip unzip libncurses6
 
       - name: Download Android SDK Command-line Tools
         run: |
