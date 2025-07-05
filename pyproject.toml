@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "grocery_app_kivy"
+version = "0.1.0"
+description = "A Kivy-based grocery ordering Android app"
+authors = ["Venkataramana NN <venkat.naibhi@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{ include = "grocery_app" }]
+
+[tool.poetry.dependencies]
+python = ">=3.10,<3.12"
+kivy = "^2.2.1"
+requests = "^2.31.0"
+Pillow = "^10.3.0"
+
+[tool.poetry.dev-dependencies]
+black = "^24.4.2"
+flake8 = "^7.0.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
