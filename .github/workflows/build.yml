@@ -32,10 +32,10 @@ jobs:
       - name: Download Android SDK Command-line Tools
         run: |
           mkdir -p $HOME/android-sdk/cmdline-tools/latest
-          cd $HOME/android-sdk/cmdline-tools
+          cd $HOME/android-sdk
           curl -sSL https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -o cmdline.zip
-          unzip -q cmdline.zip
-          mv cmdline-tools/* latest/
+          unzip -q cmdline.zip -d cmdline-tools/latest
+      
       
 
       - name: Accept licenses
