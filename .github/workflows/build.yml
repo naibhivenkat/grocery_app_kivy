@@ -36,12 +36,20 @@ jobs:
           curl -sSL https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -o cmdline.zip
           unzip -q cmdline.zip
           mv cmdline-tools $HOME/android-sdk/cmdline-tools/latest
-          
+
       - name: Fix Android SDK tools path
         run: |
+          rm -rf $HOME/android-sdk/cmdline-tools/tools
           mkdir -p $HOME/android-sdk/cmdline-tools/tools
-          cp -r $HOME/android-sdk/cmdline-tools/latest/* $HOME/android-sdk/cmdline-tools/tools/
+          cp -a $HOME/android-sdk/cmdline-tools/latest/. $HOME/android-sdk/cmdline-tools/tools/
 
+      - name:
+          Sanity check: SDK Manager CLI works
+        run: |
+          $HOME/android-sdk/cmdline-tools/tools/bin/sdkmanager --version
+      
+      
+      
 
       - name: Debug sdkmanager path
         run: |
