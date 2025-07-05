@@ -19,4 +19,4 @@ fullscreen = 1
 android.ndk_path = $ANDROIDNDK
 android.ndk_api = 21
 android.api = 30
-android.sdk_path = $ANDROID_SDK_ROOT
+android.sdk_path = /home/runner/android-sdk  
