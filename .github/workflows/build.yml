@@ -39,7 +39,7 @@ jobs:
       
 
       - name: Debug sdkmanager path
-        grun: |
+        run: |
           echo "SDK Tools location:"
           ls -R $HOME/android-sdk/cmdline-tools
 
