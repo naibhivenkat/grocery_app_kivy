@@ -12,7 +12,9 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
+      env:
       ANDROID_SDK_ROOT: ${{ github.workspace }}/.android
+      PATH: ${{ github.workspace }}/.android/cmdline-tools/latest/bin:${{ github.workspace }}/.android/platform-tools:${{ env.PATH }}
       ANDROID_HOME: ${{ github.workspace }}/.android
       ANDROID_NDK_VERSION: 25.2.9519653
       ANDROID_API_LEVEL: 30

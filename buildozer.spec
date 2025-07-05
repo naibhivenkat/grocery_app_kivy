@@ -16,7 +16,7 @@ orientation = portrait
 fullscreen = 1
 
 # Let GitHub Actions set these via environment variables
-android.sdk_path = $ANDROIDSDK
 android.ndk_path = $ANDROIDNDK
 android.ndk_api = 21
 android.api = 30
+android.sdk_path = $HOME/.android
