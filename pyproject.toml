@@ -5,6 +5,7 @@ description = "A Kivy-based grocery ordering Android app"
 authors = ["Venkataramana NN <venkat.naibhi@gmail.com>"]
 license = "MIT"
 readme = "README.md"
+package-mode = false  
 
 [tool.poetry.dependencies]
 python = "^3.11"
