@@ -43,8 +43,7 @@ jobs:
           mkdir -p $HOME/android-sdk/cmdline-tools/tools
           cp -a $HOME/android-sdk/cmdline-tools/latest/. $HOME/android-sdk/cmdline-tools/tools/
 
-      - name:
-          Sanity check: SDK Manager CLI works
+      - name: Sanity check: SDK Manager CLI works
         run: |
           $HOME/android-sdk/cmdline-tools/tools/bin/sdkmanager --version
       
