@@ -9,11 +9,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
-
       - name: Set up Python 3.11
         uses: actions/setup-python@v5
         with:
@@ -25,50 +23,51 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Install required system packages
+
+      - name: Install required packages
         run: |
           sudo apt-get update
-          sudo apt-get install -y zip unzip libncurses6 libstdc++6
+          sudo apt-get install -y zip unzip libncurses6
 
       - name: Download Android SDK Command-line Tools
         run: |
-          mkdir -p $HOME/android-sdk/cmdline-tools
-          cd $HOME/android-sdk/cmdline-tools
+          mkdir -p $HOME/android-sdk/cmdline-tools/latest
+          cd $HOME/android-sdk/cmdline-tools/latest
           curl -sSL https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -o cmdline.zip
-          unzip -q cmdline.zip -d cmdline-tools
-          mv cmdline-tools $HOME/android-sdk/cmdline-tools/latest
+          unzip -q cmdline.zip
+          rm cmdline.zip
+      
 
-      - name: Accept Android SDK licenses
+      - name: Accept licenses
         run: yes | $HOME/android-sdk/cmdline-tools/latest/bin/sdkmanager --sdk_root=$HOME/android-sdk --licenses
 
-      - name: Install Android platform tools and build tools
-        run: |
-          $HOME/android-sdk/cmdline-tools/latest/bin/sdkmanager --sdk_root=$HOME/android-sdk \
-            "platform-tools" "platforms;android-30" "build-tools;30.0.3"
+      - name: Install platform tools
+        run: $HOME/android-sdk/cmdline-tools/latest/bin/sdkmanager --sdk_root=$HOME/android-sdk "platform-tools" "platforms;android-30" "build-tools;30.0.3"
 
-      - name: Set environment variables for Android SDK
+      - name: Export environment variables
         run: |
           echo "ANDROID_HOME=$HOME/android-sdk" >> $GITHUB_ENV
           echo "ANDROID_SDK_ROOT=$HOME/android-sdk" >> $GITHUB_ENV
-          echo "$HOME/android-sdk/platform-tools" >> $GITHUB_PATH
           echo "$HOME/android-sdk/cmdline-tools/latest/bin" >> $GITHUB_PATH
+          echo "$HOME/android-sdk/platform-tools" >> $GITHUB_PATH
 
-      - name: Show workspace contents
+      - name: Show workspace contents  # ✅ Add this step here
         run: |
           echo "== Root directory =="
           pwd
           echo "== Listing files =="
           ls -R
 
-      - name: Install Python dependencies via Poetry
+      - name: Install dependencies
         run: |
           pip install --upgrade pip
           pip install poetry
           poetry install
+          
 
-      - name: Install Buildozer & Cython
+      - name: Install Buildozer  & Cython
         run: |
-          pip install buildozer cython
+          pip install buildozer Cython
 
       - name: Build APK
         run: |
