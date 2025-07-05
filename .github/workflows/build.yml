@@ -64,10 +64,14 @@ jobs:
           pip install poetry
           poetry install
           
-          
+
       - name: Install Buildozer  # ✅ NEW STEP
         run: |
           pip install buildozer
+
+      - name: Install Cython
+        run: |
+          pip install cython
 
       - name: Build APK
         run: |
