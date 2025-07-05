@@ -31,12 +31,18 @@ jobs:
 
       - name: Download Android SDK Command-line Tools
         run: |
-          mkdir -p $HOME/android-sdk/cmdline-tools/latest
-          cd $HOME/android-sdk
+          mkdir -p $HOME/android-sdk/cmdline-tools
+          cd $HOME/android-sdk/cmdline-tools
           curl -sSL https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -o cmdline.zip
-          unzip -q cmdline.zip -d cmdline-tools/latest
+          unzip -q cmdline.zip
+          mv cmdline-tools $HOME/android-sdk/cmdline-tools/latest
       
-      
+
+      - name: Debug sdkmanager path
+        grun: |
+          echo "SDK Tools location:"
+          ls -R $HOME/android-sdk/cmdline-tools
+
 
       - name: Accept licenses
         run: yes | $HOME/android-sdk/cmdline-tools/latest/bin/sdkmanager --sdk_root=$HOME/android-sdk --licenses
