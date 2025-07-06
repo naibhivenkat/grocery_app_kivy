@@ -23,3 +23,7 @@ RUN mkdir -p $ANDROID_HOME/cmdline-tools && \
 # Install Android SDK components
 RUN yes | sdkmanager --sdk_root=$ANDROID_HOME --licenses && \
     sdkmanager --sdk_root=$ANDROID_HOME "platform-tools" "platforms;android-30" "build-tools;30.0.3"
+
+# Compatibility: create legacy tools path so Buildozer can find sdkmanager
+RUN ln -s $ANDROID_HOME/cmdline-tools/latest $ANDROID_HOME/tools
+
