@@ -2,9 +2,7 @@ name: Docker Kivy APK Build
 
 on:
   push:
-    branches:
-      - main
-      - test-branch
+    branches: ["**"]
 
 jobs:
   build:
