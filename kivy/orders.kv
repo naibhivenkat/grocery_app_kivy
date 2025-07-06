@@ -10,13 +10,9 @@
                 cols: 1
                 size_hint_y: None
                 height: self.minimum_height
-                Button:
-                    text: "Refresh"
-                    on_release: root.on_pre_enter()
+        Button:
+            text: "Refresh"
+            on_release: root.on_pre_enter()
         Button:
             text: "Back to Login"
             on_release: app.root.current = "login"
-        on_pre_enter:
-            orders_grid.clear_widgets()
-            for o in root.orders:
-                orders_grid.add_widget(Button(text=f"Order {o[0]}: {o[2]} - {o[3]}", on_release=lambda btn, oid=o[0]: root.update_status(oid, 'Completed')))
