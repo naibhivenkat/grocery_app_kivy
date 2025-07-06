@@ -20,3 +20,8 @@ android.sdk_path = /opt/android-sdk
 android.ndk_path = /home/runner/.buildozer/android/platform/android-ndk-r25b
 android.ndk_api = 21
 android.api = 30
+
+
+[buildozer]
+warn_on_root = 0
+
