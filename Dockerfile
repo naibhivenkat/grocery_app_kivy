@@ -9,6 +9,7 @@ RUN apt-get update && apt-get install -y \
     libstdc++6 zlib1g zlib1g-dev libncurses6 \
     python3-pip python3-setuptools python3-wheel \
     cmake \
+    libffi-dev autoconf automake libtool pkg-config \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Buildozer and dependencies
@@ -21,10 +22,9 @@ RUN mkdir -p $ANDROID_HOME/cmdline-tools && \
     mv $ANDROID_HOME/cmdline-tools/cmdline-tools $ANDROID_HOME/cmdline-tools/latest && \
     rm cmdline.zip
 
-# Install Android SDK components
+# Accept licenses and install platforms/build-tools
 RUN yes | sdkmanager --sdk_root=$ANDROID_HOME --licenses && \
     sdkmanager --sdk_root=$ANDROID_HOME "platform-tools" "platforms;android-30" "build-tools;30.0.3"
 
-# Compatibility: create legacy tools path so Buildozer can find sdkmanager
+# Compatibility fix for Buildozer legacy sdkmanager path
 RUN ln -s $ANDROID_HOME/cmdline-tools/latest $ANDROID_HOME/tools
-
