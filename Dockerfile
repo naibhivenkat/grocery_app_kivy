@@ -8,6 +8,7 @@ RUN apt-get update && apt-get install -y \
     build-essential libncurses5 libncurses5-dev \
     libstdc++6 zlib1g zlib1g-dev libncurses6 \
     python3-pip python3-setuptools python3-wheel \
+    cmake \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Buildozer and dependencies
