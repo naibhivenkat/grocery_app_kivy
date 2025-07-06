@@ -5,7 +5,7 @@ package.domain = org.yourdomain
 source.dir = .
 source.include_exts = py,kv,png,jpg
 version = 1.0
-requirements = python3==3.10.11,kivy,pillow,libffi,pyjnius,cython<3.0
+requirements = python3==3.10.11,kivy,pillow,libffi,pyjnius,cython==0.29.36
 exclude_modules = email,html,xml,unittest,pydoc,doctest,distutils
 android.archs = armeabi-v7a
 strip = 1
@@ -15,14 +15,10 @@ icon.filename = kivy/icons/app_icon.png
 orientation = portrait
 fullscreen = 1
 
-# Important paths for GitHub Actions
 android.sdk_path = /opt/android-sdk
 android.ndk_path = /home/runner/.buildozer/android/platform/android-ndk-r25b
 android.ndk_api = 21
 android.api = 30
-
-# ✅ Optional extra arguments for python-for-android
-p4a.extra_args = --cython-directives language_level=3
 
 [buildozer]
 warn_on_root = 0
