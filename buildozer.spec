@@ -21,7 +21,8 @@ android.ndk_path = /home/runner/.buildozer/android/platform/android-ndk-r25b
 android.ndk_api = 21
 android.api = 30
 
+# ✅ Optional extra arguments for python-for-android
+p4a.extra_args = --cython-directives language_level=3
 
 [buildozer]
 warn_on_root = 0
-
