@@ -1,4 +1,7 @@
-FROM python:3.11-slim
+FROM python:3.10-slim
+
+# Alias python3.10 so buildozer can find it
+RUN ln -s /usr/local/bin/python3 /usr/local/bin/python3.10
 
 ENV ANDROID_HOME=/opt/android-sdk
 ENV PATH="$PATH:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools"
@@ -13,18 +16,18 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Buildozer and dependencies
-RUN pip install --upgrade pip setuptools Cython buildozer
+RUN pip install --upgrade pip setuptools "Cython<3.0" buildozer
 
-# Download Android command-line tools
+# Download Android SDK Command-line Tools
 RUN mkdir -p $ANDROID_HOME/cmdline-tools && \
     curl -sSL https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -o cmdline.zip && \
     unzip -q cmdline.zip -d $ANDROID_HOME/cmdline-tools && \
     mv $ANDROID_HOME/cmdline-tools/cmdline-tools $ANDROID_HOME/cmdline-tools/latest && \
     rm cmdline.zip
 
-# Accept licenses and install platforms/build-tools
+# Accept licenses and install platform tools
 RUN yes | sdkmanager --sdk_root=$ANDROID_HOME --licenses && \
     sdkmanager --sdk_root=$ANDROID_HOME "platform-tools" "platforms;android-30" "build-tools;30.0.3"
 
-# Compatibility fix for Buildozer legacy sdkmanager path
+# Legacy path fix so buildozer can find sdkmanager
 RUN ln -s $ANDROID_HOME/cmdline-tools/latest $ANDROID_HOME/tools
