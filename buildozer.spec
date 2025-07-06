@@ -3,7 +3,7 @@ title = GroceryApp
 package.name = groceryapp
 package.domain = org.yourdomain
 source.dir = .
-source.include_exts = py,kv,png,jpg,db
+source.include_exts = py,png,jpg,kv,atlas
 source.include_patterns = *.db
 version = 1.0
 requirements = python3==3.10.11,kivy,pillow,libffi,pyjnius,cython==0.29.36
