@@ -16,7 +16,7 @@ orientation = portrait
 fullscreen = 1
 
 # Important paths for GitHub Actions
-android.sdk_path = /home/runner/android-sdk
+android.sdk_path = /opt/android-sdk
 android.ndk_path = /home/runner/.buildozer/android/platform/android-ndk-r25b
 android.ndk_api = 21
 android.api = 30
