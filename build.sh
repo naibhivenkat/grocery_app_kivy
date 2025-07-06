@@ -1,3 +1,3 @@
 #!/bin/bash
 set -e
-buildozer android debug
+buildozer --allow-root android debug
