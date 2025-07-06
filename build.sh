@@ -4,13 +4,18 @@
 #buildozer --allow-root android debug
 
 
-
+#!/bin/bash
 set -e
 
-# Run clean only if you pass 'clean' as an argument
-if [[ "$1" == "clean" ]]; then
-  echo "Running clean build..."
-  buildozer --allow-root android clean
+if [ "$1" == "clean" ]; then
+  echo "Requested clean build..."
+  # Only run clean if p4a directory exists
+  if [ -d ".buildozer/android/platform/python-for-android" ]; then
+    buildozer --allow-root android clean
+  else
+    echo "Skipping clean: platform/python-for-android not found (likely first build)"
+  fi
 fi
 
+# Always build
 buildozer --allow-root android debug
