@@ -5,7 +5,7 @@ package.domain = org.yourdomain
 source.dir = .
 source.include_exts = py,kv,png,jpg
 version = 1.0
-requirements = python3,kivy,pillow,libffi
+requirements = python3==3.10.11,kivy,pillow,libffi,pyjnius,cython<3.0
 exclude_modules = email,html,xml,unittest,pydoc,doctest,distutils
 android.archs = armeabi-v7a
 strip = 1

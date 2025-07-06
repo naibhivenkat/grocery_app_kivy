@@ -2,7 +2,7 @@ name: Docker Kivy APK Build
 
 on:
   push:
-    branches: ["**"]
+    branches: [ "**" ]
 
 jobs:
   build:
@@ -21,9 +21,22 @@ jobs:
       - name: Build Docker image
         run: docker build -t kivy-apk-builder .
 
+      - name: Clean previous build
+        run: |
+          docker run --rm \
+            -v ${{ github.workspace }}:/app \
+            -w /app \
+            kivy-apk-builder \
+            buildozer --allow-root android clean
+
       - name: Run Buildozer inside Docker
         run: |
-          docker run --rm -v ${{ github.workspace }}:/app -w /app kivy-apk-builder ./build.sh
+          docker run --rm \
+            -v ${{ github.workspace }}:/app \
+            -w /app \
+            kivy-apk-builder \
+            ./build.sh
+
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
