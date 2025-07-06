@@ -1,5 +1,3 @@
-# buildozer.spec
-
 [app]
 title = GroceryApp
 package.name = groceryapp
@@ -17,8 +15,8 @@ icon.filename = kivy/icons/app_icon.png
 orientation = portrait
 fullscreen = 1
 
-# Let GitHub Actions set these via environment variables
+# Important paths for GitHub Actions
+android.sdk_path = /home/runner/android-sdk
 android.ndk_path = /home/runner/.buildozer/android/platform/android-ndk-r25b
 android.ndk_api = 21
 android.api = 30
-android.sdk_path = /home/runner/android-sdk
