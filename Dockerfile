@@ -11,9 +11,9 @@ RUN apt-get update && apt-get install -y \
     unzip zip git curl openjdk-17-jdk \
     build-essential libncurses5 libncurses5-dev \
     libstdc++6 zlib1g zlib1g-dev libncurses6 \
+    libffi-dev libssl-dev autoconf automake libtool pkg-config \
     python3-pip python3-setuptools python3-wheel \
     cmake \
-    libffi-dev autoconf automake libtool pkg-config \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Buildozer and dependencies
