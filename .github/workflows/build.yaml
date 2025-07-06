@@ -21,14 +21,6 @@ jobs:
       - name: Build Docker image
         run: docker build -t kivy-apk-builder .
 
-      - name: Clean previous build manually
-        run: |
-          docker run --rm \
-            -v ${{ github.workspace }}:/app \
-            -w /app \
-            kivy-apk-builder \
-            bash -c "rm -rf .buildozer bin"
-
       - name: Run Buildozer inside Docker
         run: |
           docker run --rm \
@@ -36,7 +28,6 @@ jobs:
             -w /app \
             kivy-apk-builder \
             ./build.sh
-
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
