@@ -1,3 +1,5 @@
+# buildozer.spec
+
 [app]
 title = GroceryApp
 package.name = groceryapp

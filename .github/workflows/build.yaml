@@ -35,24 +35,24 @@ jobs:
           cd $HOME/android-sdk/cmdline-tools
           curl -sSL https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -o cmdline.zip
           unzip -q cmdline.zip
-          mv cmdline-tools latest  # ✅ Correct layout
+          mv cmdline-tools tools  # ✅ Buildozer expects this
 
       - name: "Sanity check: SDK Manager CLI works"
-        run: $HOME/android-sdk/cmdline-tools/latest/bin/sdkmanager --version
+        run: $HOME/android-sdk/cmdline-tools/tools/bin/sdkmanager --version
 
       - name: Accept licenses
-        run: yes | $HOME/android-sdk/cmdline-tools/latest/bin/sdkmanager --sdk_root=$HOME/android-sdk --licenses
+        run: yes | $HOME/android-sdk/cmdline-tools/tools/bin/sdkmanager --sdk_root=$HOME/android-sdk --licenses
 
       - name: Install platform tools
         run: |
-          bash -c '$HOME/android-sdk/cmdline-tools/latest/bin/sdkmanager --sdk_root=$HOME/android-sdk \
-            "platform-tools" "platforms;android-30" "build-tools;30.0.3"'
+          $HOME/android-sdk/cmdline-tools/tools/bin/sdkmanager --sdk_root=$HOME/android-sdk \
+            "platform-tools" "platforms;android-30" "build-tools;30.0.3"
 
       - name: Export environment variables
         run: |
           echo "ANDROID_HOME=$HOME/android-sdk" >> $GITHUB_ENV
           echo "ANDROID_SDK_ROOT=$HOME/android-sdk" >> $GITHUB_ENV
-          echo "$HOME/android-sdk/cmdline-tools/latest/bin" >> $GITHUB_PATH
+          echo "$HOME/android-sdk/cmdline-tools/tools/bin" >> $GITHUB_PATH
           echo "$HOME/android-sdk/platform-tools" >> $GITHUB_PATH
 
       - name: Show workspace contents
