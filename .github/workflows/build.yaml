@@ -44,8 +44,9 @@ jobs:
         run: yes | $HOME/android-sdk/cmdline-tools/latest/bin/sdkmanager --sdk_root=$HOME/android-sdk --licenses
 
       - name: Install platform tools
-        run: $HOME/android-sdk/cmdline-tools/latest/bin/sdkmanager --sdk_root=$HOME/android-sdk \
-              "platform-tools" "platforms;android-30" "build-tools;30.0.3"
+        run: |
+          bash -c '$HOME/android-sdk/cmdline-tools/latest/bin/sdkmanager --sdk_root=$HOME/android-sdk \
+            "platform-tools" "platforms;android-30" "build-tools;30.0.3"'
 
       - name: Export environment variables
         run: |
