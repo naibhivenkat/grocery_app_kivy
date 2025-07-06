@@ -12,13 +12,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Docker Build Environment
-        run: |
-          echo "Current directory:"
-          pwd
-          echo "Listing files:"
-          ls -l
-
       - name: Make build.sh executable
         run: chmod +x build.sh
 
@@ -27,11 +20,10 @@ jobs:
           docker run --rm \
             -v ${{ github.workspace }}:/app \
             -w /app \
-            kivyapk/kivy-apk-builder \
+            c4ptnkirk/kivy-buildozer:latest \
             ./build.sh
 
       - name: List generated APKs
         run: |
           echo "Checking output files..."
           find . -name "*.apk" || echo "No APK found"
-
