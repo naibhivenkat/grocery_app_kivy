@@ -9,21 +9,29 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Build Docker image
-        run: docker build -t kivy-apk-builder .
-
-      - name: Run Buildozer inside Docker
+      - name: Set up Docker Build Environment
         run: |
-          docker run --rm -v ${{ github.workspace }}:/app -w /app kivy-apk-builder ./build.sh
+          echo "Current directory:"
+          pwd
+          echo "Listing files:"
+          ls -l
 
-      - name: Upload APK artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: grocery-app-apk
-          path: ./bin/*.apk
+      - name: Make build.sh executable
+        run: chmod +x build.sh
+
+      - name: Build APK using Docker
+        run: |
+          docker run --rm \
+            -v ${{ github.workspace }}:/app \
+            -w /app \
+            kivyapk/kivy-apk-builder \
+            ./build.sh
+
+      - name: List generated APKs
+        run: |
+          echo "Checking output files..."
+          find . -name "*.apk" || echo "No APK found"
+
