@@ -1,7 +1,8 @@
 FROM python:3.10-slim
 
-# Alias python3.10 so buildozer can find it
-RUN ln -s /usr/local/bin/python3 /usr/local/bin/python3.10
+# Alias python3.10 so buildozer can find it (only if missing)
+RUN bash -c '[ -f /usr/local/bin/python3.10 ] || ln -s /usr/local/bin/python3 /usr/local/bin/python3.10'
+
 
 ENV ANDROID_HOME=/opt/android-sdk
 ENV PATH="$PATH:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools"
