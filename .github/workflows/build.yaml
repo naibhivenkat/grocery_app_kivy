@@ -21,13 +21,13 @@ jobs:
       - name: Build Docker image
         run: docker build -t kivy-apk-builder .
 
-      - name: Clean previous build
+      - name: Clean previous build manually
         run: |
           docker run --rm \
             -v ${{ github.workspace }}:/app \
             -w /app \
             kivy-apk-builder \
-            buildozer --allow-root android clean
+            bash -c "rm -rf .buildozer bin"
 
       - name: Run Buildozer inside Docker
         run: |
